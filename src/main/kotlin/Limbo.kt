@@ -6,7 +6,6 @@ import kotlin.io.path.exists
 import kotlin.io.path.readText
 import kotlin.math.max
 import kotlin.math.min
-import net.kyori.adventure.text.minimessage.MiniMessage.miniMessage
 import net.minestom.server.MinecraftServer.getBiomeManager
 import net.minestom.server.MinecraftServer.getDimensionTypeManager
 import net.minestom.server.MinecraftServer.getGlobalEventHandler
@@ -16,7 +15,6 @@ import net.minestom.server.coordinate.Pos
 import net.minestom.server.entity.GameMode.ADVENTURE
 import net.minestom.server.event.player.PlayerLoginEvent
 import net.minestom.server.event.player.PlayerMoveEvent
-import net.minestom.server.event.player.PlayerSpawnEvent
 import net.minestom.server.extras.velocity.VelocityProxy.enable
 import net.minestom.server.instance.Chunk.CHUNK_SIZE_X
 import net.minestom.server.instance.Chunk.CHUNK_SIZE_Z
@@ -87,11 +85,6 @@ fun main() {
 
 		it.setSpawningInstance(instance)
 		it.player.respawnPoint = Pos(0.0, 1.0, 0.0)
-	}
-
-	// Welcome the player
-	getGlobalEventHandler().addListener(PlayerSpawnEvent::class.java) {
-		it.player.sendMessage(miniMessage().deserialize("<aqua><red><b>Welcome to Limbo!</b></red>\nAs you're here, the server is restarting, or something broke.\n<grey><i>How am I meant to know? I'm just a pre-written message.</i></grey>\nAnyway, we will try to get you back where you were as soon as we can.\nHowever you can switch to another server using the <white>/server</white> command."))
 	}
 
 	// World wrap around

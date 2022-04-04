@@ -14,13 +14,11 @@ application {
 
 repositories {
   mavenCentral()
-  maven("https://repo.aikar.co/content/groups/aikar/")
   maven("https://repo.spongepowered.org/maven")
   maven("https://jitpack.io")
 }
 
 dependencies {
-  implementation("net.kyori:adventure-text-minimessage:4.10.0")
   implementation("com.github.Minestom:Minestom:-SNAPSHOT")
 }
 
