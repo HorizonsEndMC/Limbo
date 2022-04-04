@@ -71,14 +71,6 @@ fun main() {
 		chunk
 	}
 
-	// Init Velocity Support
-	val secretPath = Path("velocitySecret")
-	if (!secretPath.exists()) secretPath.createFile()
-
-	val secret = secretPath.readText()
-
-	enable(secret) // Enable Velocity
-
 	// Handle Player Spawns
 	getGlobalEventHandler().addListener(PlayerLoginEvent::class.java) {
 		it.player.gameMode = ADVENTURE
@@ -109,6 +101,14 @@ fun main() {
 		if (newX != it.newPosition.x || newZ != it.newPosition.z || newYaw != it.newPosition.yaw)
 			it.newPosition = Pos(newX, it.newPosition.y, newZ, newYaw, it.newPosition.pitch)
 	}
+
+	// Init Velocity Support
+	val secretPath = Path("velocitySecret")
+	if (!secretPath.exists()) secretPath.createFile()
+
+	val secret = secretPath.readText()
+
+	enable(secret) // Enable Velocity
 
 	server.start("0.0.0.0", 10000)
 }
