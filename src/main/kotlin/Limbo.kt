@@ -84,22 +84,10 @@ fun main() {
 		var newX = it.newPosition.x
 		var newZ = it.newPosition.z
 
-		var flipYaw = false
+		if (-32 > newX || newX > 32) newX = -min(max(-32.0, newX), 32.0)
+		if (-32 > newZ || newZ > 32) newZ = -min(max(-32.0, newZ), 32.0)
 
-		if (-32 > newX || newX > 32) {
-			newX = -min(max(-32.0, newX), 32.0)
-			flipYaw = true
-		}
-
-		if (-32 > newZ || newZ > 32) {
-			newZ = -min(max(-32.0, newZ), 32.0)
-			flipYaw = true
-		}
-
-		val newYaw = if (flipYaw) -it.newPosition.yaw else it.newPosition.yaw
-
-		if (newX != it.newPosition.x || newZ != it.newPosition.z || newYaw != it.newPosition.yaw)
-			it.newPosition = Pos(newX, it.newPosition.y, newZ, newYaw, it.newPosition.pitch)
+		it.newPosition = Pos(newX, it.newPosition.y, newZ, it.newPosition.yaw, it.newPosition.pitch)
 	}
 
 	// Init Velocity Support
