@@ -6,6 +6,7 @@ import kotlin.io.path.exists
 import kotlin.io.path.readText
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.random.Random
 import net.minestom.server.MinecraftServer.getBiomeManager
 import net.minestom.server.MinecraftServer.getDimensionTypeManager
 import net.minestom.server.MinecraftServer.getGlobalEventHandler
@@ -26,6 +27,8 @@ import net.minestom.server.world.biomes.Biome
 import net.minestom.server.world.biomes.BiomeEffects
 import net.minestom.server.world.biomes.BiomeParticle
 import net.minestom.server.world.biomes.BiomeParticle.NormalOption
+
+const val LIMBO_SIZE = 16.0
 
 fun main() {
 	// Init Server
@@ -76,7 +79,8 @@ fun main() {
 		it.player.gameMode = ADVENTURE
 
 		it.setSpawningInstance(instance)
-		it.player.respawnPoint = Pos(0.0, 1.0, 0.0)
+		it.player.respawnPoint = Pos(Random.nextDouble(-LIMBO_SIZE, LIMBO_SIZE), 1.0, Random.nextDouble(-LIMBO_SIZE, LIMBO_SIZE))
+		it.player.lookAt(Pos(0.0, 1.0, 0.0))
 	}
 
 	// World wrap around
@@ -84,8 +88,8 @@ fun main() {
 		var newX = it.newPosition.x
 		var newZ = it.newPosition.z
 
-		if (-32 > newX || newX > 32) newX = -min(max(-32.0, newX), 32.0)
-		if (-32 > newZ || newZ > 32) newZ = -min(max(-32.0, newZ), 32.0)
+		if (-LIMBO_SIZE > newX || newX > LIMBO_SIZE) newX = -min(max(-LIMBO_SIZE, newX), LIMBO_SIZE)
+		if (-LIMBO_SIZE > newZ || newZ > LIMBO_SIZE) newZ = -min(max(-LIMBO_SIZE, newZ), LIMBO_SIZE)
 
 		it.newPosition = Pos(newX, it.newPosition.y, newZ, it.newPosition.yaw, it.newPosition.pitch)
 	}
